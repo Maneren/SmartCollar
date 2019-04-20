@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Smart Collar</string>
+    <string name="main_text">Choose action</string>
+    <string name="main_walk">Start walk</string>
+    <string name="main_find">Search</string>
+    <string name="map_lora" translatable="false">Lora</string>
+    <string name="map_usb" translatable="false">USB</string>
+    <string name="map_sms" translatable="false">SMS</string>
+    <string name="main_settings">Configure SmartCollar</string>
+    <string name="main_map">Open map</string>
+</resources>
