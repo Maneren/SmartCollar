@@ -9,5 +9,8 @@ public class Walk extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walk);
+
+        int time;
+
     }
 }
