@@ -1,4 +1,5 @@
 <resources>
+    <!--<string name=""></string>-->
     <string name="app_name">Smart Collar</string>
     <string name="main_text">Choose action</string>
     <string name="main_walk">Start walk</string>
@@ -8,4 +9,6 @@
     <string name="map_sms" translatable="false">SMS</string>
     <string name="main_settings">Configure SmartCollar</string>
     <string name="main_map">Open map</string>
+
+    <string name="walk_buttons_text">Select connection method</string>
 </resources>

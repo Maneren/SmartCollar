@@ -5,4 +5,5 @@
     <string name="main_map">Otevřít mapu</string>
     <string name="main_find">Hledat</string>
     <string name="main_walk">Spustit procházku</string>
+    <string name="walk_buttons_text">Vyberte metodu připojení</string>
 </resources>
