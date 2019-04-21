@@ -1,0 +1,8 @@
+<resources>
+    <!--<string name=""></string>-->
+    <string name="main_text">Choose action</string>
+    <string name="main_walk">Start walk</string>
+    <string name="main_find">Search</string>
+    <string name="main_settings">Configure SmartCollar</string>
+    <string name="main_map">Open map</string>
+</resources>

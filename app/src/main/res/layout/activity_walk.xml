@@ -20,44 +20,44 @@
         app:layout_constraintVertical_bias="0.07999998">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button_sms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:text="@string/sms"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button2"
+            app:layout_constraintEnd_toStartOf="@+id/button_usb"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttons_text"
-            tools:text="sms" />
+            app:layout_constraintTop_toBottomOf="@+id/buttons_text" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button_usb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:onClick="useUSB"
+            android:text="@string/usb"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button3"
+            app:layout_constraintEnd_toStartOf="@+id/button_lora"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button"
-            app:layout_constraintTop_toBottomOf="@+id/buttons_text"
-            tools:text="usb" />
+            app:layout_constraintStart_toEndOf="@+id/button_sms"
+            app:layout_constraintTop_toBottomOf="@+id/buttons_text" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/button_lora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:text="@string/lora"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button2"
-            app:layout_constraintTop_toBottomOf="@+id/buttons_text"
-            tools:text="lora" />
+            app:layout_constraintStart_toEndOf="@+id/button_usb"
+            app:layout_constraintTop_toBottomOf="@+id/buttons_text" />
 
         <TextView
             android:id="@+id/buttons_text"
@@ -71,7 +71,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="select data sending method" />
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

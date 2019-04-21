@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Smart Collar</string>
     <string name="main_text">Vyberte akci</string>
     <string name="main_settings">Nastavit SmartCollar</string>
     <string name="main_map">Otevřít mapu</string>

@@ -9,15 +9,16 @@ import android.hardware.usb.UsbManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.felhr.usbserial.UsbSerialInterface;
+import com.felhr.usbserial.UsbSerialDevice;
 
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class Arduino {
     private UsbManager usbManager;
     private Context context;
+    private UsbDevice device;
 
     Arduino(Activity activity){
         context = activity.getApplicationContext();
@@ -25,9 +26,7 @@ public class Arduino {
         Log.d("USB", "created");
     }
 
-    protected void connect() {
-        UsbDevice device;
-        //UsbDeviceConnection connection;
+    void connect() {
         final String ACTION_USB_PERMISSION = "com.maneren.smartcollar.USB_PERMISSION";
         HashMap<String, UsbDevice> usbDevices = usbManager.getDeviceList();
         if (!usbDevices.isEmpty()) {
@@ -40,23 +39,21 @@ public class Arduino {
                     PendingIntent pi = PendingIntent.getBroadcast(context, 0, new Intent(ACTION_USB_PERMISSION), 0);
                     usbManager.requestPermission(device, pi);
                     keep = false;
-                } /*else {
-                    connection = null;
-                    device = null;
-                }*/
-
+                }
                 if (!keep) break;
             }
         } else Toast.makeText(context, "No USB device detected", Toast.LENGTH_SHORT).show();
     }
 
-    UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() {
-        //Defining a Callback which triggers whenever data is read.
-        @Override
-        public void onReceivedData(byte[] arg0) {
-            String data = new String(arg0, StandardCharsets.UTF_8).concat("/n");
-            Log.d("USB", data);
-        }
-    };
+    public UsbDevice getDevice (){
+        return device;
+    }
 
+    void send(UsbSerialDevice serialPort, String msg){
+        serialPort.write(msg.getBytes());
+    }
+
+    void disconnect(UsbSerialDevice serialPort){
+        serialPort.close();
+    }
 }
