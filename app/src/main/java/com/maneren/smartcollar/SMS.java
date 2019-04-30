@@ -154,15 +154,14 @@ class SMS {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            if (intent.getAction() == null) return;
             if (intent.getAction().equals(SMS_RECEIVED)) {
                 Bundle bundle = intent.getExtras();
                 if (bundle != null) {
                     // get sms objects
                     Object[] pdus = (Object[]) bundle.get("pdus");
-                    if (pdus.length == 0) {
-                        return;
-                    }
-                    // large message might be broken into many
+                    if (pdus == null || pdus.length == 0) return;
+
                     SmsMessage[] messages = new SmsMessage[pdus.length];
                     StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < pdus.length; i++) {

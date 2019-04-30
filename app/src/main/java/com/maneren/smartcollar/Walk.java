@@ -7,15 +7,18 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
 
 public class Walk extends AppCompatActivity {
+    TextView timerTextView;
     Arduino arduino;
     SMS sms;
     Context context;
     HashMap <String, String> locations;
+    Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +26,20 @@ public class Walk extends AppCompatActivity {
         sms = null;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walk);
+        timerTextView = findViewById(R.id.walk_time);
         context = this.getApplicationContext();
-        //int time = 0;
-        locations.clear();
+        if (locations != null) locations.clear();
+
+        timer = new Timer();
+        timer.setListener(new Timer.Listener() {
+            public void recieveCallback(String time) {
+                timerUpdate(time);
+            }
+        });
+    }
+
+    public void timerUpdate(String time){
+        timerTextView.setText(time);
     }
 
     public void onRecieveCallback(String recieved){
@@ -34,7 +48,7 @@ public class Walk extends AppCompatActivity {
         String body = data[1];
         Toast.makeText(context, header + ": " + body, Toast.LENGTH_SHORT).show();
         if(header.equals(Communication.LOCATION_DATA)){
-            String[] coordinates = body.split("/ /");
+            String[] coordinates = body.split("\\w");
             String lat = coordinates[0];
             String lon = coordinates[1];
             locations.put(lat,lon);
@@ -42,6 +56,7 @@ public class Walk extends AppCompatActivity {
     }
 
     public void useUSB(View view){
+        timer.start();
         arduino = new Arduino(this);
         arduino.setListener(new Arduino.Listener() {
             public void recieveCallback(String data) {
@@ -84,7 +99,6 @@ public class Walk extends AppCompatActivity {
     public void onDestroy(){
         if (arduino != null) {
             arduino.disconnect();
-            arduino.send(Communication.END);
         }
         if (sms != null) {
             sms.send(Communication.END);
@@ -98,5 +112,11 @@ public class Walk extends AppCompatActivity {
             if (grantResults.length < 1 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                 sms.checkForPermission(this);
             }
+    }
+
+    @Override
+    public void onPause(){
+        timer.pause();
+        super.onPause();
     }
 }

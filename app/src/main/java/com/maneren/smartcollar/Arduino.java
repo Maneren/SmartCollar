@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Objects;
 
 
-public class Arduino {
+class Arduino {
     private UsbManager usbManager;
     private Context context;
     private UsbDevice device;
@@ -117,11 +117,16 @@ public class Arduino {
     }
 
     void send(String msg){
-        serialPort.write(msg.getBytes());
+        if (serialPort != null) {
+            serialPort.write(msg.getBytes());
+        }
     }
 
     void disconnect(){
-        if (serialPort != null) serialPort.close();
+        if (serialPort != null) {
+            send(Communication.END);
+            serialPort.close();
+        }
         context.unregisterReceiver(broadcastReceiver);
     }
 }
