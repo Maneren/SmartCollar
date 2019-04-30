@@ -2,6 +2,7 @@ package com.maneren.smartcollar;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,12 +11,13 @@ import android.widget.Toast;
 
 public class Walk extends AppCompatActivity {
     Arduino arduino;
+    SMS sms;
     Context context;
-    private Walk instance = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         arduino = null;
+        sms = null;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walk);
         context = this.getApplicationContext();
@@ -28,13 +30,19 @@ public class Walk extends AppCompatActivity {
     }
 
     public void useUSB(View view){
-        arduino = new Arduino(instance);
+        arduino = new Arduino(this);
         arduino.setListener(new Arduino.Listener() {
             public void recieveCallback(String data) {
                 onRecieveCallback(data);
             }
         });
         arduino.connect();
+    }
+
+    public void useSMS(View view){
+        sms = new SMS(this, context);
+        sms.setDefaultNum("737710634");
+        //sms.sendSMS("TEST", null);
     }
 
     @Override
@@ -58,9 +66,21 @@ public class Walk extends AppCompatActivity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        arduino.disconnect();
+        if (arduino != null) arduino.disconnect();
         //if (sms)
     }
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                } else sms.checkForPermission(this);
+                break;
+            }
+        }
+    }
 }
