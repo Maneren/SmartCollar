@@ -4,4 +4,14 @@
     <string name="usb" translatable="false">USB</string>
     <string name="sms" translatable="false">SMS</string>
     <string name="app_name" translatable="false">SmartCollar</string>
+
+	<!-- main -->
+	<string name="main_text">Choose action</string>
+    <string name="main_walk">Start walk</string>
+    <string name="main_find">Search</string>
+    <string name="main_settings">Configure SmartCollar</string>
+    <string name="main_map">Open map</string>
+
+	<!-- walk -->
+	<string name="walk_buttons_text">Select connection method</string>
 </resources>
