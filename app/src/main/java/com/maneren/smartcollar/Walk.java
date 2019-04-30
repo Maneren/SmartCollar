@@ -9,10 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.HashMap;
+
 public class Walk extends AppCompatActivity {
     Arduino arduino;
     SMS sms;
     Context context;
+    HashMap <String, String> locations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +24,21 @@ public class Walk extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walk);
         context = this.getApplicationContext();
-        int time = 0;
-        String[] locations = {};
+        //int time = 0;
+        locations.clear();
     }
 
-    public void onRecieveCallback(String str){
-        Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+    public void onRecieveCallback(String recieved){
+        String[] data = recieved.split("/-/");
+        String header = data[0];
+        String body = data[1];
+        Toast.makeText(context, header + ": " + body, Toast.LENGTH_SHORT).show();
+        if(header.equals(Communication.LOCATION_DATA)){
+            String[] coordinates = body.split("/ /");
+            String lat = coordinates[0];
+            String lon = coordinates[1];
+            locations.put(lat,lon);
+        }
     }
 
     public void useUSB(View view){
@@ -40,9 +52,14 @@ public class Walk extends AppCompatActivity {
     }
 
     public void useSMS(View view){
-        sms = new SMS(this, context);
+        sms = new SMS(this);
+        sms.setListener(new SMS.Listener() {
+            public void recieveCallback(String data) {
+                onRecieveCallback(data);
+            }
+        });
         sms.setDefaultNum("737710634");
-        //sms.sendSMS("TEST", null);
+        sms.send("TEST" + "ic-config:c545a5b41;param:9557");
     }
 
     @Override
@@ -65,22 +82,21 @@ public class Walk extends AppCompatActivity {
 
     @Override
     public void onDestroy(){
+        if (arduino != null) {
+            arduino.disconnect();
+            arduino.send(Communication.END);
+        }
+        if (sms != null) {
+            sms.send(Communication.END);
+        }
         super.onDestroy();
-        if (arduino != null) arduino.disconnect();
-        //if (sms)
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                } else sms.checkForPermission(this);
-                break;
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 1)
+            if (grantResults.length < 1 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                sms.checkForPermission(this);
             }
-        }
     }
 }

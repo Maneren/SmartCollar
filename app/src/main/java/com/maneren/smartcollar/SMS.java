@@ -9,21 +9,24 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.telephony.SmsManager;
+import android.telephony.SmsMessage;
 import android.widget.Toast;
 
 class SMS {
+
+    private Listener mListener;
     private final Activity activity;
     private Context context;
-    private String defaultNum;
+    private String[] defaultNum;
 
-    SMS(Activity activityArg, Context contextArg){
+    SMS(Activity activityArg){
         activity = activityArg;
-        //context = activity.getApplicationContext();
-        context = contextArg;
+        context = activity.getApplicationContext();
         defaultNum = null;
         checkForPermission(activity);
     }
@@ -77,12 +80,12 @@ class SMS {
     }
 
     void setDefaultNum(String num){
-        defaultNum = num;
+        defaultNum[0] = num;
     }
 
-    void sendSMS(String message, String phoneNumber)
+    void send(String message, String ...phoneNumbers)
     {
-        phoneNumber = (defaultNum != null) ? defaultNum : phoneNumber;
+        phoneNumbers = (defaultNum != null) ? defaultNum : phoneNumbers;
 
         String SENT = "SMS_SENT";
         String DELIVERED = "SMS_DELIVERED";
@@ -139,7 +142,46 @@ class SMS {
             }
         }, new IntentFilter(DELIVERED));
 
-        SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
+        for (String phoneNumber: phoneNumbers) {
+            SmsManager sms = SmsManager.getDefault();
+            sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
+        }
+    }
+
+    public class SmsReceiver extends BroadcastReceiver {
+
+        private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(SMS_RECEIVED)) {
+                Bundle bundle = intent.getExtras();
+                if (bundle != null) {
+                    // get sms objects
+                    Object[] pdus = (Object[]) bundle.get("pdus");
+                    if (pdus.length == 0) {
+                        return;
+                    }
+                    // large message might be broken into many
+                    SmsMessage[] messages = new SmsMessage[pdus.length];
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < pdus.length; i++) {
+                        messages[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
+                        sb.append(messages[i].getMessageBody());
+                    }
+                    //String sender = messages[0].getOriginatingAddress();
+                    String message = sb.toString();
+                    mListener.recieveCallback(message);
+                }
+            }
+        }
+    }
+
+    public interface Listener {
+        void recieveCallback(String str);
+    }
+
+    void setListener(Listener listener) {
+        mListener = listener;
     }
 }

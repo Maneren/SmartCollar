@@ -29,7 +29,7 @@ public class Arduino {
     private Listener mListener;
     private final String ACTION_USB_PERMISSION = "com.hariharan.arduinousb.USB_PERMISSION";
 
-    Arduino(Activity activityArg/*, Runnable broadcastCallbackArg*/){
+    Arduino(Activity activityArg){
         context = activityArg.getApplicationContext();
         usbManager = (UsbManager) activityArg.getSystemService(Context.USB_SERVICE);
         IntentFilter filter = new IntentFilter();
@@ -116,7 +116,7 @@ public class Arduino {
         mListener = listener;
     }
 
-    void send(UsbSerialDevice serialPort, String msg){
+    void send(String msg){
         serialPort.write(msg.getBytes());
     }
 
