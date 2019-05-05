@@ -5,11 +5,9 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -22,12 +20,10 @@ class SMS {
     private Listener mListener;
     private final Activity activity;
     private Context context;
-    private String[] defaultNum;
 
     SMS(Activity activityArg){
         activity = activityArg;
         context = activity.getApplicationContext();
-        defaultNum = null;
         checkForPermission(activity);
     }
 
@@ -47,13 +43,7 @@ class SMS {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle("Permission required")
                         .setMessage("You have to grant this permission in order to use the SMS connection")
-                        .setPositiveButton("Grant", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                requestPermission();
-                            }
-
-                        })
+                        .setPositiveButton("Grant", (dialog, which) -> requestPermission())
                         .setNegativeButton("Decline", null)
                         .show();
             } else {
@@ -61,13 +51,7 @@ class SMS {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle("Permission grant required")
                         .setMessage("You have to grant this permission in order to use the SMS connection")
-                        .setPositiveButton("Grant", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                requestPermission();
-                            }
-
-                        })
+                        .setPositiveButton("Grant", (dialog, which) -> requestPermission())
                         .setNegativeButton("Decline", null)
                         .show();
             }
@@ -79,14 +63,8 @@ class SMS {
                 new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, 1);
     }
 
-    void setDefaultNum(String num){
-        defaultNum[0] = num;
-    }
-
     void send(String message, String ...phoneNumbers)
     {
-        phoneNumbers = (defaultNum != null) ? defaultNum : phoneNumbers;
-
         String SENT = "SMS_SENT";
         String DELIVERED = "SMS_DELIVERED";
 
@@ -149,7 +127,7 @@ class SMS {
     }
 
     public class SmsReceiver extends BroadcastReceiver {
-
+/*
         private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
 
         @Override
@@ -171,6 +149,43 @@ class SMS {
                     //String sender = messages[0].getOriginatingAddress();
                     String message = sb.toString();
                     mListener.recieveCallback(message);
+                }
+            }
+        }*/
+
+        public static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
+        private static final String SMS_SENDER = "123456789";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null &&
+                    intent.getAction() != null &&
+                    intent.getExtras() != null &&
+                    ACTION.compareToIgnoreCase(intent.getAction()) == 0) {
+                Object[] pduArray = (Object[]) intent.getExtras().get("pdus");
+                if (pduArray != null) {
+                    SmsMessage[] messages = new SmsMessage[pduArray.length];
+                    for (int i = 0; i < pduArray.length; i++) {
+                        messages[i] = SmsMessage.createFromPdu((byte[]) pduArray[i]);
+                    }
+                    // SMS Sender, example: 123456789
+                    String sms_from = messages[0].getDisplayOriginatingAddress();
+
+                    //Lets check if SMS sender is 123456789
+                    if (sms_from.equalsIgnoreCase(SMS_SENDER)) {
+                        StringBuilder bodyText = new StringBuilder();
+
+                        // If SMS has several parts, lets combine it :)
+                        for (SmsMessage message : messages) {
+                            bodyText.append(message.getMessageBody());
+                        }
+                        //SMS Body
+                        String body = bodyText.toString();
+                        //Send sms to activity via listener
+                        mListener.recieveCallback(body);
+                        // Lets get SMS Code
+                        String code = body.replaceAll("[^0-9]", "");
+                    }
                 }
             }
         }

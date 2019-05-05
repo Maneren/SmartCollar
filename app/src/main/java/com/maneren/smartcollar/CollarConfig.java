@@ -17,12 +17,7 @@ public class CollarConfig extends AppCompatActivity {
         context = this.getApplicationContext();
 
         arduino = new Arduino(this);
-        arduino.setListener(new Arduino.Listener() {
-            public void recieveCallback(String data) {
-                onRecieveCallback(data);
-            }
-        });
-
+        arduino.setListener(this::onRecieveCallback);
         arduino.send(Communication.CONFIG);
     }
 

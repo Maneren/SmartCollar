@@ -102,6 +102,7 @@ class Arduino {
     private UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() {
         @Override
         public void onReceivedData(byte[] arg0) {
+
             String data = new String(arg0, StandardCharsets.UTF_8).concat("/n");
             mListener.recieveCallback(data);
             Log.d("USB", data);

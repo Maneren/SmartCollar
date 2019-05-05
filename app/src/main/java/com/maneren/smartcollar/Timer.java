@@ -40,9 +40,7 @@ class Timer {
 
     }
 
-    void stop() {
-        timerHandler.removeCallbacks(timerRunnable);
-    }
+
 
     void start(){
         startTime = System.currentTimeMillis();
@@ -50,6 +48,14 @@ class Timer {
     }
 
     void pause(){
+        timerHandler.removeCallbacks(timerRunnable);
+    }
+
+    void goOn(){
+        timerHandler.postDelayed(timerRunnable, 0);
+    }
+
+    void stop() {
         timerHandler.removeCallbacks(timerRunnable);
     }
 

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
+    <!--<uses-permission android:name="android.permission.BROADCAST_SMS" />-->
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
@@ -20,6 +21,12 @@
                 <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name=".SMS$SmsReceiver">
+            <intent-filter android:priority="100">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCo83Q17__qmeA6c4iVdjnQKzlaBtOAUrE" />
