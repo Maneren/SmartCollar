@@ -15,23 +15,23 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 
 public class Walk extends AppCompatActivity {
-    TextView timerTextView;
-    Arduino arduino;
-    SMS sms;
-    Context context;
-    HashMap <String, Data> locations;
-    Timer timer;
-    Gson gson = new Gson();
+    private TextView timerTextView;
+    private Arduino arduino;
+    private SMS sms;
+    private Context context;
+    private HashMap <String, Data> locations;
+    private Timer timer;
+    private final Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        arduino = null;
+        sms = null;
         sms = new SMS(this);
         sms.setListener(this::onRecieveCallback);
         arduino = new Arduino(this);
         arduino.setListener(this::onRecieveCallback);
 
-        arduino = null;
-        sms = null;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walk);
         timerTextView = findViewById(R.id.walk_time);
@@ -41,27 +41,29 @@ public class Walk extends AppCompatActivity {
 
         timer = new Timer();
         timer.setListener(this::timerUpdate);
+
+        Data data = new Data();
+        Toast.makeText(this.getApplicationContext(), data.toString(), Toast.LENGTH_LONG).show();
     }
 
-    public void timerUpdate(String time){
+    private void timerUpdate(String time){
         timerTextView.setText(time);
     }
 
-    public void onRecieveCallback(String recieved){
+    private void onRecieveCallback(String recieved){
         Toast.makeText(context, recieved, Toast.LENGTH_SHORT).show();
-        /*Data data = gson.fromJson(recieved, Data.class);
-        locations.put(Integer.toString(locations.size()), data);*/
+        Data data = gson.fromJson(recieved, Data.class);
+        //locations.put(Integer.toString(locations.size()), data);*/
     }
 
     public void useUSB(View view){
         timer.start();
-
         arduino.connect();
     }
 
     public void useSMS(View view){
         Toast.makeText(this.getApplicationContext(),"sending",Toast.LENGTH_SHORT).show();
-        sms.send("TEST" + "ic-config:c545a5b41;param:9559", /*"739323482"*/"737710634");
+        sms.send("TEST", "739323482", "737710634");
     }
 
     @Override

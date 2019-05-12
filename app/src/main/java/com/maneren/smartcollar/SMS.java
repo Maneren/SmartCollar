@@ -19,12 +19,49 @@ class SMS {
 
     private Listener mListener;
     private final Activity activity;
-    private Context context;
+    private final Context context;
 
     SMS(Activity activityArg){
         activity = activityArg;
         context = activity.getApplicationContext();
         checkForPermission(activity);
+        final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
+        final String SMS_SENDER = "123456789";
+        context.registerReceiver(new BroadcastReceiver(){
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if ((intent != null) &&
+                        (intent.getAction() != null) &&
+                        (intent.getExtras() != null) &&
+                        (ACTION.compareToIgnoreCase(intent.getAction()) == 0)) {
+                    Object[] pduArray = (Object[]) intent.getExtras().get("pdus");
+                    if (pduArray != null) {
+                        SmsMessage[] messages = new SmsMessage[pduArray.length];
+                        for (int i = 0; i < pduArray.length; i++) {
+                            messages[i] = SmsMessage.createFromPdu((byte[]) pduArray[i]);
+                        }
+                        // SMS Sender, example: 123456789
+                        String sms_from = messages[0].getDisplayOriginatingAddress();
+
+                        //Lets check if SMS sender is 123456789
+                        if (sms_from.equalsIgnoreCase(SMS_SENDER)) {
+                            StringBuilder bodyText = new StringBuilder();
+
+                            // If SMS has several parts, lets combine it :)
+                            for (SmsMessage message : messages) {
+                                bodyText.append(message.getMessageBody());
+                            }
+                            //SMS Body
+                            String body = bodyText.toString();
+                            //Send sms to activity via listener
+                            mListener.recieveCallback(body);
+                            // Lets get SMS Code
+                            String code = body.replaceAll("[^0-9]", "");
+                        }
+                    }
+                }
+            }
+        }, new IntentFilter("SMS_Recieved"));
     }
 
     void checkForPermission(Activity activity){
@@ -126,6 +163,8 @@ class SMS {
         }
     }
 
+
+
     public class SmsReceiver extends BroadcastReceiver {
 /*
         private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
@@ -153,7 +192,7 @@ class SMS {
             }
         }*/
 
-        public static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
+        static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
         private static final String SMS_SENDER = "123456789";
 
         @Override

@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 public class CollarConfig extends AppCompatActivity {
-    Arduino arduino;
+    private Arduino arduino;
     private Context context;
 
     @Override
@@ -18,10 +18,10 @@ public class CollarConfig extends AppCompatActivity {
 
         arduino = new Arduino(this);
         arduino.setListener(this::onRecieveCallback);
-        arduino.send(Communication.CONFIG);
+        //arduino.send(Communication.CONFIG);
     }
 
-    public void onRecieveCallback(String str){
+    private void onRecieveCallback(String str){
         Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
     }
 

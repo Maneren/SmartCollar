@@ -21,9 +21,19 @@ import java.util.Map;
 import java.util.Objects;
 
 
+/**
+ * Wraps all Arduino communication.
+ * Writes to and reads Arduino serial port.
+ *
+ * Methods:
+ *  void connect(Activity);
+ *  void disconnect();
+ *  void send(data);
+ *  void setListener(Activity::Runnable);
+ */
 class Arduino {
-    private UsbManager usbManager;
-    private Context context;
+    private final UsbManager usbManager;
+    private final Context context;
     private UsbDevice device;
     private UsbSerialDevice serialPort;
     private Listener mListener;
@@ -59,7 +69,7 @@ class Arduino {
         } else Toast.makeText(context, "No USB device detected", Toast.LENGTH_SHORT).show();
     }
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         UsbDeviceConnection connection;
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -99,7 +109,7 @@ class Arduino {
         }
     };
 
-    private UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() {
+    private final UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() {
         @Override
         public void onReceivedData(byte[] arg0) {
 

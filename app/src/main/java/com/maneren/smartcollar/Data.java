@@ -1,20 +1,35 @@
 package com.maneren.smartcollar;
 
+import android.support.annotation.NonNull;
+
 import java.util.Calendar;
 
 class Data {
-    public String id;
-    String target;
-    String time;
-    Calendar datetime;
-    String type;
-    Double latitude;
-    Double longitude;
-    Float velocity;
-    int heigth;
-    int accuracy;
+    private String id;
+    private String target;
+    private String time;
+    private Calendar datetime;
+    private String type;
+    private Double latitude;
+    private Double longitude;
+    private Float velocity;
+    private int heigth;
+    private int accuracy;
 
-    Data(){
-
+    @Override
+    @NonNull
+    public String toString() {
+        return "{" +
+                "id:'" + id + '\'' +
+                ", target:'" + target + '\'' +
+                ", time:'" + time + '\'' +
+                ", datetime:" + datetime +
+                ", type:'" + type + '\'' +
+                ", latitude:" + latitude +
+                ", longitude:" + longitude +
+                ", velocity:" + velocity +
+                ", heigth:" + heigth +
+                ", accuracy:" + accuracy +
+                '}';
     }
 }

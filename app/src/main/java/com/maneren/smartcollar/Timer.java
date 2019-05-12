@@ -9,8 +9,8 @@ class Timer {
     private long startTime = 0;
     private Listener mListener;
 
-    private Handler timerHandler = new Handler();
-    private Runnable timerRunnable = new Runnable() {
+    private final Handler timerHandler = new Handler();
+    private final Runnable timerRunnable = new Runnable() {
 
         @Override
         public void run() {
