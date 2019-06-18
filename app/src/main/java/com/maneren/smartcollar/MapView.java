@@ -1,7 +1,9 @@
 package com.maneren.smartcollar;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,8 +36,17 @@ public class MapView extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         LatLng gymik = new LatLng(49.739956, 13.387321);
+        LatLng gymik2 = new LatLng(49.739956, 13.4874);
         googleMap.addMarker(new MarkerOptions().position(gymik).title("Dog location"));
         googleMap.moveCamera(CameraUpdateFactory.zoomTo(17));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(gymik));
+
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Toast.makeText(this.getApplicationContext(), "change", Toast.LENGTH_SHORT).show();
+            googleMap.clear();
+            googleMap.addMarker(new MarkerOptions().position(gymik2).title("Dog location"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(gymik2));
+        }, 2000);
     }
 }

@@ -13,7 +13,7 @@ class Data {
     private Double latitude;
     private Double longitude;
     private Float velocity;
-    private int heigth;
+    private int altitude;
     private int accuracy;
 
     @Override
@@ -28,7 +28,7 @@ class Data {
                 ", latitude:" + latitude +
                 ", longitude:" + longitude +
                 ", velocity:" + velocity +
-                ", heigth:" + heigth +
+                ", heigth:" + altitude +
                 ", accuracy:" + accuracy +
                 '}';
     }

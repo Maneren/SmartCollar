@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.maneren.smartcollar">
+
     <uses-feature android:name="android.hardware.usb.host" />
+
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.BROADCAST_SMS" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
@@ -15,34 +18,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Walk"
-            android:screenOrientation="sensorPortrait" >
-            <intent-filter>
-                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
-            </intent-filter>
-        </activity>
-        <receiver
-            android:name=".SMS$SmsReceiver">
-            <intent-filter android:priority="100">
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCo83Q17__qmeA6c4iVdjnQKzlaBtOAUrE" />
-
-        <activity
             android:name=".MainActivity"
-            android:screenOrientation="sensorPortrait">
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Walk"
+            android:screenOrientation="sensorPortrait">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".SMS$SmsReceiver">
+            <intent-filter android:priority="100">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCo83Q17__qmeA6c4iVdjnQKzlaBtOAUrE" />
+
         <activity
             android:name=".MapView"
             android:parentActivityName=".MainActivity"
@@ -51,10 +53,10 @@
             android:name=".CollarConfig"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorPortrait" />
+
         <service
-            android:name="com.maneren.smartcollar.UsbService"
-            android:enabled="true">
-        </service>
+            android:name=".UsbService"
+            android:enabled="true" />
     </application>
 
 </manifest>

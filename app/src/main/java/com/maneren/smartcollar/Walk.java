@@ -10,48 +10,44 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.Set;
 
 public class Walk extends AppCompatActivity {
-    /*private TextView timerTextView;
-    private Arduino arduino;
     private SMS sms;
     private Context context;
-    private HashMap <String, Data> locations;
+    private HashMap<String, Data> locations;
     private Timer timer;
     private final Gson gson = new Gson();
+    private UsbService usbService;
+    private MyHandler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        arduino = null;
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_walk);
+
+        mHandler = new MyHandler(this);
+        startService(UsbService.class, usbConnection, null);
+
         sms = null;
         sms = new SMS(this);
         sms.setListener(this::onRecieveCallback);
-        arduino = new Arduino(this);
-        arduino.setListener(this::onRecieveCallback);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_walk);
-        timerTextView = findViewById(R.id.walk_time);
         context = this.getApplicationContext();
 
         if (locations != null) locations.clear();
 
-        timer = new Timer();
-        timer.setListener(this::timerUpdate);
-
         Data data = new Data();
-        Toast.makeText(this.getApplicationContext(), data.toString(), Toast.LENGTH_LONG).show();
-    }
-
-    private void timerUpdate(String time){
-        timerTextView.setText(time);
+        //Toast.makeText(this.getApplicationContext(), data.toString(), Toast.LENGTH_LONG).show();
     }
 
     private void onRecieveCallback(String recieved){
@@ -61,8 +57,7 @@ public class Walk extends AppCompatActivity {
     }
 
     public void useUSB(View view){
-        timer.start();
-        arduino.connect();
+        usbService.write("hello".getBytes());
     }
 
     public void useSMS(View view){
@@ -80,31 +75,6 @@ public class Walk extends AppCompatActivity {
                 .setNegativeButton("No", null)
                 .show();
     }
-
-    @Override
-    public void onDestroy(){
-        if (arduino != null) {
-            arduino.disconnect();
-        }
-        if (sms != null) {
-            sms.send(Communication.END);
-        }
-        super.onDestroy();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 1)
-            if (grantResults.length < 1 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                sms.checkForPermission(this);
-            }
-    }
-
-    @Override
-    public void onPause(){
-        timer.pause();
-        super.onPause();
-    }*/
 
     /*
      * Notifications from UsbService will be received here.
@@ -132,10 +102,7 @@ public class Walk extends AppCompatActivity {
             }
         }
     };
-    private UsbService usbService;
-    private TextView display;
-    private EditText editText;
-    private MyHandler mHandler;
+
     private final ServiceConnection usbConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName arg0, IBinder arg1) {
@@ -148,29 +115,6 @@ public class Walk extends AppCompatActivity {
             usbService = null;
         }
     };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        //mHandler = new MyHandler(this);
-
-        /*display = (TextView) findViewById(R.id.textView1);
-        editText = (EditText) findViewById(R.id.editText1);
-        Button sendButton = (Button) findViewById(R.id.buttonSend);
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!editText.getText().toString().equals("")) {
-                    String data = editText.getText().toString();
-                    if (usbService != null) { // if UsbService was correctly binded, Send data
-                        usbService.write(data.getBytes());
-                    }
-                }
-            }
-        });*/
-    }
 
     @Override
     public void onResume() {
@@ -216,9 +160,9 @@ public class Walk extends AppCompatActivity {
      * This handler will be passed to UsbService. Data received from serial port is displayed through this handler
      */
     private static class MyHandler extends Handler {
-        private final WeakReference<MainActivity> mActivity;
+        private final WeakReference<Walk> mActivity;
 
-        MyHandler(MainActivity activity) {
+        MyHandler(Walk activity) {
             mActivity = new WeakReference<>(activity);
         }
 
@@ -227,7 +171,7 @@ public class Walk extends AppCompatActivity {
             switch (msg.what) {
                 case UsbService.MESSAGE_FROM_SERIAL_PORT:
                     String data = (String) msg.obj;
-                    //Toast.makeText();
+                    Toast.makeText(mActivity.get(), data, Toast.LENGTH_SHORT).show();
                     break;
                 case UsbService.CTS_CHANGE:
                     Toast.makeText(mActivity.get(), "CTS_CHANGE",Toast.LENGTH_LONG).show();
