@@ -11,4 +11,8 @@
     <string name="menu_share">Sdílet</string>
     <string name="menu_about">O aplikaci</string>
     <string name="nav_header_subtitle">od Lambda</string>
+    <string name="navigation_drawer_close">Otevřít navigační panel</string>
+    <string name="navigation_drawer_open">Zavřít navigační panel</string>
+    <string name="nav_header_desc">Hlavička navigacního panelu</string>
+    <string name="action_settings">Nastavení</string>
 </resources>

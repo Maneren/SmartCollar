@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SmartCollar.iml" filepath="$PROJECT_DIR$/SmartCollar.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testing_module/testing_module.iml" filepath="$PROJECT_DIR$/testing_module/testing_module.iml" />
     </modules>
   </component>
 </project>
