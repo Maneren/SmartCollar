@@ -16,21 +16,7 @@
     <string name="menu_settings">Settings</string>
 
     <string name="action_settings">Settings</string>
-    <string name="baud_prompt" translatable="false">Choose Baudrate</string>
-    <string-array name="baud_arrays">
-        <item>300 baud</item>
-        <item>1200 baud</item>
-        <item>2400 baud</item>
-        <item>4800 baud</item>
-        <item>9600 baud</item>
-        <item>19200 baud</item>
-        <item>38400 baud</item>
-        <item>576600 baud</item>
-        <item>744880 baud</item>
-        <item>115200 baud</item>
-        <item>230400 baud</item>
-        <item>250000 baud</item>
-    </string-array>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title" translatable="false">SmartCollar</string>
@@ -44,12 +30,12 @@
     <string name="menu_share">Share</string>
     <string name="menu_help">Help</string>
     <string name="menu_about">About app</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_send">Send</string>
+    <string name="title_activity_main2" translatable="false">Main2Activity</string>
+    <string name="menu_gallery" translatable="false">Gallery</string>
+    <string name="menu_slideshow" translatable="false">Slideshow</string>
+    <string name="menu_tools" translatable="false">Tools</string>
+    <string name="menu_send" translatable="false">Send</string>
 
-    <string name="api_key">AIzaSyCo83Q17__qmeA6c4iVdjnQKzlaBtOAUrE</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="api_key" translatable="false">AIzaSyCo83Q17__qmeA6c4iVdjnQKzlaBtOAUrE</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
 </resources>

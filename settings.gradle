@@ -1,1 +1,1 @@
-include ':base-data', ':testing_module', ':test', ':product'
+include ':base-data', ':testing_module', ':test', ':product', ':product', ':product'
