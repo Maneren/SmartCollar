@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -79,13 +81,14 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        /* TODO add handlers for other menu buttons clicks */
+        /* TODO add handlers for menu buttons clicks */
         if (id == R.id.nav_home) {
 
         } else if(id == R.id.nav_map) {
 
         } else if(id == R.id.nav_settings) {
-
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
         } else if(id == R.id.nav_share) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
@@ -93,7 +96,8 @@ public class MainActivity extends AppCompatActivity
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
         } else if(id == R.id.nav_help) {
-
+            Intent intent = new Intent(MainActivity.this, HelpActivity.class);
+            startActivity(intent);
         } else if(id == R.id.nav_about) {
 
         }
