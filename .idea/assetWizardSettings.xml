@@ -149,8 +149,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_menu_map" />
-                            <entry key="sourceFile" value="D:\Programming\SmartCollar\Ikona\mapa.svg" />
+                            <entry key="outputName" value="ic_bottommenu_more" />
+                            <entry key="sourceFile" value="D:\Programming\SmartCollar\Ikona\sharp-more_horiz-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>

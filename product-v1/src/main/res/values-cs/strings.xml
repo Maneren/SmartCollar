@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Smart Collar</string>
+    <string name="navigation_drawer_open">Otevřít navigační šuplík</string>
+    <string name="navigation_drawer_close">Zavřít navigační šuplík</string>
+    <string name="nav_header_desc">Záhlaví navigace</string>
+    <string name="action_settings">Nastavení</string>
+
+    <string name="menu_home">Domů</string>
+    <string name="menu_map">Mapa</string>
+    <string name="menu_share">Sdílet</string>
+    <string name="menu_help">Nápověda</string>
+    <string name="menu_about">O aplikaci</string>
+    <string name="menu_settings">Nastavení</string>
+
+
+    <!--<string name=""></string>-->
+
+    <string name="main_location">Zobrazit aktuální polohu</string>
+    <string name="main_alarm">Spustit poplach!</string>
+    <string name="addID_title">Přidat obojek podle sériového čísla</string>
+    <string name="devices_header">Obojky</string>
+    <string name="menu_feedback">Odeslat zpětnou vazbu</string>
+    <string name="selectID_title">Vybrat obojek podle sériového čísla</string>
+    <string name="title_activity_help">Nápověda</string>
+    <string name="title_activity_settings">Nastavení</string>
+    <string name="removeID_title">Odebrat obojek</string>
+    <string name="no">Ne</string>
+    <string name="yes">Ano</string>
+    <string name="remove_collar_text">Opravdu  chcete odebrat tento obojek?</string>
+    <string name="remove_collar_title">Odebrat obojek</string>
+    <string name="title_activity_about">O aplikaci</string>
+</resources>

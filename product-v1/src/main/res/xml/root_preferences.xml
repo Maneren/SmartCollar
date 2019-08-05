@@ -1,0 +1,38 @@
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<!-- TODO complete settings screen -->
+    <PreferenceCategory app:title="@string/devices_header">
+
+        <EditTextPreference
+            android:defaultValue=""
+            android:key="addID"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/addID_title" />
+        <ListPreference
+            app:key="selectID"
+            app:title="@string/selectID_title"
+            app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            app:key="removeID"
+            app:title="@string/removeID_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <!--<PreferenceCategory app:title="@string/sync_header">-->
+
+        <!--<SwitchPreferenceCompat-->
+            <!--app:key="sync"-->
+            <!--app:title="@string/sync_title" />-->
+
+        <!--<SwitchPreferenceCompat-->
+            <!--app:dependency="sync"-->
+            <!--app:key="attachment"-->
+            <!--app:summaryOff="@string/attachment_summary_off"-->
+            <!--app:summaryOn="@string/attachment_summary_on"-->
+            <!--app:title="@string/attachment_title" />-->
+
+    <!--</PreferenceCategory>-->
+
+</androidx.preference.PreferenceScreen>
