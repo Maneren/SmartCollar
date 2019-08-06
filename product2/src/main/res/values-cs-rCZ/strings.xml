@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_map">Mapa</string>
+    <string name="title_profile">Profil</string>
+    <string name="title_more">Další</string>
+</resources>

@@ -2,15 +2,19 @@ package com.maneren.product2;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView mTextMessage;
+    private FragmentTransaction ft;
+
+    private MapFragment mapFragment;
+    private ProfileFragment profileFragment;
+    private MoreFragment moreFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -19,13 +23,13 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_map:
-                    mTextMessage.setText(R.string.title_home);
+                    displayMapFragment();
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_profile:
+                    displayProfileFragment();
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.navigation_more:
+                    displayMoreFragment();
                     return true;
             }
             return false;
@@ -37,8 +41,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        if (savedInstanceState == null) {
+            mapFragment = MapFragment.newInstance();
+            profileFragment = ProfileFragment.newInstance();
+            moreFragment = MoreFragment.newInstance();
+        }
+
+        displayMapFragment();
+    }
+
+    protected void displayMapFragment() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        // removes the existing fragment calling onDestroy
+        ft.replace(R.id.main_content, mapFragment);
+        ft.commit();
+    }
+
+    protected void displayProfileFragment() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        // removes the existing fragment calling onDestroy
+        ft.replace(R.id.main_content, profileFragment);
+        ft.commit();
+    }
+
+    protected void displayMoreFragment() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        // removes the existing fragment calling onDestroy
+        ft.replace(R.id.main_content, moreFragment);
+        ft.commit();
     }
 
 }
