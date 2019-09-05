@@ -1,5 +1,8 @@
 package com.maneren.product2;
 
+import android.content.Context;
+import android.content.Intent;
+
 /**
  * Contains Comunication codes as Strings and methods used to communicate with outside of app
  */
@@ -31,4 +34,11 @@ class Communication {
                 + "?q=" + latitude + "," + longitude;
     }
 
+    static public void shareText(Context context, String text) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+        sendIntent.setType("text/plain");
+        context.startActivity(sendIntent);
+    }
 }

@@ -1,1 +1,1 @@
-include ':base-data', ':product-v1', ':product', ':product', ':product2'
+include ':base-data', ':product-v1', ':product', ':product', ':product2', ':testing', ':polygons', ':maps_test'

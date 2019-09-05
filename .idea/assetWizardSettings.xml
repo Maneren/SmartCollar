@@ -149,8 +149,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_arrow_right" />
-                            <entry key="sourceFile" value="D:\Programming\SmartCollar\Ikona\baseline-arrow_right-24px.svg" />
+                            <entry key="outputName" value="ic_menu_settings" />
+                            <entry key="sourceFile" value="D:\Programming\SmartCollar\Ikona\baseline-settings-20px.svg" />
                           </map>
                         </option>
                       </PersistentState>

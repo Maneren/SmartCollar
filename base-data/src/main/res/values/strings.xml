@@ -36,6 +36,6 @@
     <string name="menu_tools" translatable="false">Tools</string>
     <string name="menu_send" translatable="false">Send</string>
 
-    <string name="api_key" translatable="false">AIzaSyCo83Q17__qmeA6c4iVdjnQKzlaBtOAUrE</string>
+    <string name="api_key" translatable="false">m</string>
     <string name="title_activity_main" translatable="false">MainActivity</string>
 </resources>

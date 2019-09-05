@@ -2,6 +2,7 @@ package com.maneren.product2;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +11,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private FragmentTransaction ft;
 
     private MapFragment mapFragment;
     private ProfileFragment profileFragment;
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             mapFragment = MapFragment.newInstance();
+            mapFragment.passActivityAndContext(this, this.getApplicationContext());
             profileFragment = ProfileFragment.newInstance();
             moreFragment = MoreFragment.newInstance();
         }
@@ -54,23 +55,24 @@ public class MainActivity extends AppCompatActivity {
 
     protected void displayMapFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        // removes the existing fragment calling onDestroy
         ft.replace(R.id.main_content, mapFragment);
         ft.commit();
     }
 
     protected void displayProfileFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        // removes the existing fragment calling onDestroy
         ft.replace(R.id.main_content, profileFragment);
         ft.commit();
     }
 
     protected void displayMoreFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        // removes the existing fragment calling onDestroy
         ft.replace(R.id.main_content, moreFragment);
         ft.commit();
+    }
+
+    public void share(View view) {
+        Communication.shareText(this, "github.com/lambda-collars/Application");
     }
 
 }
