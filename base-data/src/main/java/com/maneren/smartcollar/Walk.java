@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ import java.util.Set;
 public class Walk extends AppCompatActivity {
     private SMS sms;
     private Context context;
-    private HashMap<String, Data> locations;
+    private HashMap<String, ContactsContract.Contacts.Data> locations;
     private Timer timer;
     private final Gson gson = new Gson();
     private UsbService usbService;
@@ -47,13 +48,13 @@ public class Walk extends AppCompatActivity {
 
         if (locations != null) locations.clear();
 
-        Data data = new Data();
+        ContactsContract.Contacts.Data data = new ContactsContract.Contacts.Data();
         //Toast.makeText(this.getApplicationContext(), data.toString(), Toast.LENGTH_LONG).show();
     }
 
     private void onRecieveCallback(String recieved){
         Toast.makeText(context, recieved, Toast.LENGTH_SHORT).show();
-        Data data = gson.fromJson(recieved, Data.class);
+        ContactsContract.Contacts.Data data = gson.fromJson(recieved, ContactsContract.Contacts.Data.class);
         locations.put(Integer.toString(locations.size()), data);
     }
 

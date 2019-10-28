@@ -1,4 +1,4 @@
-package com.maneren.smartcollar;
+package com.maneren.product2;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -24,52 +24,32 @@ import java.util.Objects;
 /**
  * Wraps all Arduino communication.
  * Writes to and reads Arduino serial port.
- *
+ * <p>
  * Methods:
- *  void connect(Activity);
- *  void disconnect();
- *  void send(data);
- *  void setListener(Activity::Runnable);
+ * void connect(Activity);
+ * void disconnect();
+ * void send(data);
+ * void setListener(Activity::Runnable);
  */
 class Arduino {
     private final UsbManager usbManager;
     private final Context context;
+    private final String ACTION_USB_PERMISSION = "com.maneren.smartcollar.USB_PERMISSION";
     private UsbDevice device;
     private UsbSerialDevice serialPort;
     private Listener mListener;
-    private final String ACTION_USB_PERMISSION = "com.maneren.smartcollar.USB_PERMISSION";
+    private final UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() {
+        @Override
+        public void onReceivedData(byte[] arg0) {
 
-    Arduino(Activity activityArg){
-        context = activityArg.getApplicationContext();
-        usbManager = (UsbManager) activityArg.getSystemService(Context.USB_SERVICE);
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(ACTION_USB_PERMISSION);
-        filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
-        filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
-        context.registerReceiver(broadcastReceiver, filter);
-        Log.d("USB", "created");
-    }
-
-    void connect() {
-        HashMap<String, UsbDevice> usbDevices = usbManager.getDeviceList();
-        if (!usbDevices.isEmpty()) {
-            boolean keep = true;
-            for (Map.Entry<String, UsbDevice> entry : usbDevices.entrySet()) {
-                device = entry.getValue();
-                int deviceVID = device.getVendorId();
-                if (deviceVID == 0x2341)
-                {
-                    PendingIntent pi = PendingIntent.getBroadcast(context, 0, new Intent(ACTION_USB_PERMISSION), 0);
-                    usbManager.requestPermission(device, pi);
-                    keep = false;
-                }
-                if (!keep) break;
-            }
-        } else Toast.makeText(context, "No USB device detected", Toast.LENGTH_SHORT).show();
-    }
-
+            String data = new String(arg0, StandardCharsets.UTF_8).concat("/n");
+            mListener.recieveCallback(data);
+            Log.d("USB", data);
+        }
+    };
     private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         UsbDeviceConnection connection;
+
         @Override
         public void onReceive(Context context, Intent intent) {
             switch (Objects.requireNonNull(intent.getAction())) {
@@ -108,35 +88,53 @@ class Arduino {
         }
     };
 
-    private final UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() {
-        @Override
-        public void onReceivedData(byte[] arg0) {
+    Arduino(Activity activityArg) {
+        context = activityArg.getApplicationContext();
+        usbManager = (UsbManager) activityArg.getSystemService(Context.USB_SERVICE);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ACTION_USB_PERMISSION);
+        filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+        filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+        context.registerReceiver(broadcastReceiver, filter);
+        Log.d("USB", "created");
+    }
 
-            String data = new String(arg0, StandardCharsets.UTF_8).concat("/n");
-            mListener.recieveCallback(data);
-            Log.d("USB", data);
-        }
-    };
-
-    public interface Listener {
-        void recieveCallback(String str);
+    void connect() {
+        HashMap<String, UsbDevice> usbDevices = usbManager.getDeviceList();
+        if (!usbDevices.isEmpty()) {
+            boolean keep = true;
+            for (Map.Entry<String, UsbDevice> entry : usbDevices.entrySet()) {
+                device = entry.getValue();
+                int deviceVID = device.getVendorId();
+                if (deviceVID == 0x2341) {
+                    PendingIntent pi = PendingIntent.getBroadcast(context, 0, new Intent(ACTION_USB_PERMISSION), 0);
+                    usbManager.requestPermission(device, pi);
+                    keep = false;
+                }
+                if (!keep) break;
+            }
+        } else Toast.makeText(context, "No USB device detected", Toast.LENGTH_SHORT).show();
     }
 
     void setListener(Listener listener) {
         mListener = listener;
     }
 
-    void send(String msg){
+    void send(String msg) {
         if (serialPort != null) {
             serialPort.write(msg.getBytes());
         }
     }
 
-    void disconnect(){
+    void disconnect() {
         if (serialPort != null) {
             send(Communication.END);
             serialPort.close();
         }
         context.unregisterReceiver(broadcastReceiver);
+    }
+
+    public interface Listener {
+        void recieveCallback(String str);
     }
 }

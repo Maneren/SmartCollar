@@ -1,6 +1,9 @@
-package com.maneren.smartcollar;
+package com.maneren.product2;
 
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Calendar;
 
@@ -15,6 +18,12 @@ class Data {
     private Float velocity;
     private int altitude;
     private int accuracy;
+
+    MarkerOptions getMarkerOptions() {
+        return new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .title("Dog location");
+    }
 
     @Override
     @NonNull

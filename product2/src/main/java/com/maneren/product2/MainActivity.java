@@ -1,11 +1,11 @@
 package com.maneren.product2;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -16,24 +16,24 @@ public class MainActivity extends AppCompatActivity {
     private ProfileFragment profileFragment;
     private MoreFragment moreFragment;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private static final String TAG = "MainActivity";
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_map:
-                    displayMapFragment();
-                    return true;
-                case R.id.navigation_profile:
-                    displayProfileFragment();
-                    return true;
-                case R.id.navigation_more:
-                    displayMoreFragment();
-                    return true;
-            }
-            return false;
+    //Arduino2 mArduino2;
+    private ConstraintLayout popup;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = item -> {
+        switch (item.getItemId()) {
+            case R.id.navigation_map:
+                displayMapFragment();
+                return true;
+            case R.id.navigation_profile:
+                displayProfileFragment();
+                return true;
+            case R.id.navigation_more:
+                displayMoreFragment();
+                return true;
         }
+        return false;
     };
 
     @Override
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             mapFragment = MapFragment.newInstance();
-            mapFragment.passActivityAndContext(this, this.getApplicationContext());
+            mapFragment.passActivity(this);
             profileFragment = ProfileFragment.newInstance();
             moreFragment = MoreFragment.newInstance();
         }
@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main_content, mapFragment);
         ft.commit();
+
+        /*popup = this.findViewById(R.id.info_popup);
+        Log.d(TAG, popup.toString());*/
     }
 
     protected void displayProfileFragment() {
@@ -73,6 +76,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void share(View view) {
         Communication.shareText(this, "github.com/lambda-collars/Application");
+    }
+
+    public void open(View view) {
+        Toast.makeText(this.getApplicationContext(), "open/close", Toast.LENGTH_SHORT).show();
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) popup.getLayoutParams();
+        params.height = 0;
+        popup.setLayoutParams(params);
+        /*Space. params = (Space.LayoutParams) someLayout.getLayoutParams();
+        params.height = 0;
+        someLayout.setLayoutParams(params);*/
     }
 
 }

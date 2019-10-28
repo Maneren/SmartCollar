@@ -19,5 +19,8 @@
     <string name="profile_sub">Username</string>
     <string name="share_title">Share</string>
 
+    <string name="map_latlng_title">Location:</string>
+    <string name="map_signal_title">Signal strength:</string>
+
 
 </resources>
