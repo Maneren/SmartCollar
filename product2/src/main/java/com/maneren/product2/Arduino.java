@@ -21,35 +21,23 @@ import java.util.Map;
 import java.util.Objects;
 
 
-/**
- * Wraps all Arduino communication.
- * Writes to and reads Arduino serial port.
- * <p>
- * Methods:
- * void connect(Activity);
- * void disconnect();
- * void send(data);
- * void setListener(Activity::Runnable);
- */
-class Arduino {
-    private final UsbManager usbManager;
-    private final Context context;
-    private final String ACTION_USB_PERMISSION = "com.maneren.smartcollar.USB_PERMISSION";
+public class Arduino {
+    private final String ACTION_USB_PERMISSION = "com.hariharan.arduinousb.USB_PERMISSION";
+    private UsbManager usbManager;
     private UsbDevice device;
     private UsbSerialDevice serialPort;
     private Listener mListener;
-    private final UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() {
+    private Context context;
+    private UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() {
         @Override
         public void onReceivedData(byte[] arg0) {
-
             String data = new String(arg0, StandardCharsets.UTF_8).concat("/n");
             mListener.recieveCallback(data);
             Log.d("USB", data);
         }
     };
-    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         UsbDeviceConnection connection;
-
         @Override
         public void onReceive(Context context, Intent intent) {
             switch (Objects.requireNonNull(intent.getAction())) {
@@ -88,7 +76,7 @@ class Arduino {
         }
     };
 
-    Arduino(Activity activityArg) {
+    Arduino(Activity activityArg/*, Runnable broadcastCallbackArg*/) {
         context = activityArg.getApplicationContext();
         usbManager = (UsbManager) activityArg.getSystemService(Context.USB_SERVICE);
         IntentFilter filter = new IntentFilter();
@@ -100,6 +88,7 @@ class Arduino {
     }
 
     void connect() {
+        final String ACTION_USB_PERMISSION = "com.maneren.smartcollar.USB_PERMISSION";
         HashMap<String, UsbDevice> usbDevices = usbManager.getDeviceList();
         if (!usbDevices.isEmpty()) {
             boolean keep = true;
@@ -116,21 +105,16 @@ class Arduino {
         } else Toast.makeText(context, "No USB device detected", Toast.LENGTH_SHORT).show();
     }
 
+    void send(UsbSerialDevice serialPort, String msg) {
+        serialPort.write(msg.getBytes());
+    }
+
     void setListener(Listener listener) {
         mListener = listener;
     }
 
-    void send(String msg) {
-        if (serialPort != null) {
-            serialPort.write(msg.getBytes());
-        }
-    }
-
     void disconnect() {
-        if (serialPort != null) {
-            send(Communication.END);
-            serialPort.close();
-        }
+        if (serialPort != null) serialPort.close();
         context.unregisterReceiver(broadcastReceiver);
     }
 

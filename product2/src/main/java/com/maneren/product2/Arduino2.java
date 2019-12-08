@@ -13,6 +13,8 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import java.lang.ref.WeakReference;
 import java.util.Set;
 
@@ -36,7 +38,7 @@ public class Arduino2 {
      */
     private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context, @NonNull Intent intent) {
             switch (intent.getAction()) {
                 case UsbService.ACTION_USB_PERMISSION_GRANTED: // USB PERMISSION GRANTED
                     Toast.makeText(context, "USB Ready", Toast.LENGTH_SHORT).show();

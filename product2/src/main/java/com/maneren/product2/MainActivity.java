@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Arduino2 mArduino2;
     private ConstraintLayout popup;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
         switch (item.getItemId()) {
@@ -78,12 +79,22 @@ public class MainActivity extends AppCompatActivity {
         Communication.shareText(this, "github.com/lambda-collars/Application");
     }
 
+    void getPopupLayout(ConstraintLayout layout) {
+        popup = layout;
+    }
+
     public void open(View view) {
+        popup = findViewById(R.id.info_popup);
         Toast.makeText(this.getApplicationContext(), "open/close", Toast.LENGTH_SHORT).show();
-        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) popup.getLayoutParams();
+        if (popup.getVisibility() == View.VISIBLE) {
+            popup.setVisibility(View.GONE);
+        } else {
+            popup.setVisibility(View.VISIBLE);
+        }
+        /*ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) popup.getLayoutParams();
         params.height = 0;
-        popup.setLayoutParams(params);
-        /*Space. params = (Space.LayoutParams) someLayout.getLayoutParams();
+        popup.setLayoutParams(params);*/
+        /*Space.LayoutParams params = (Space.LayoutParams) someLayout.getLayoutParams();
         params.height = 0;
         someLayout.setLayoutParams(params);*/
     }

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Space;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,11 +24,12 @@ public class MapFragment extends Fragment {
 
     private Context context;
     private MainActivity activity;
-    private Arduino2 mArduino;
+    private Arduino2 mArduino2;
+    private Arduino mArduino;
     private Data dogData = new Data();
 
     private ConstraintLayout popup;
-    private Space marginSpacer;
+    //private Space marginSpacer;
 
     private Gson gson = new Gson();
 
@@ -66,12 +66,14 @@ public class MapFragment extends Fragment {
         Log.d(TAG, DegreesConverter.DecimalToDegMinSec(1, 13.999999));
         map.getLocationPermission();
 
-        mArduino = new Arduino2(activity);
+//        mArduino2 = new Arduino2(activity);
+//        mArduino2.setListener(this::onRecieveCallback);
+
+        mArduino = new Arduino(activity);
         mArduino.setListener(this::onRecieveCallback);
 
         /*popup = activity.findViewById(R.id.info_popup);
         Log.d(TAG, popup.toString());*/
-        marginSpacer = activity.findViewById(R.id.marginSpacer);
     }
 
     void passActivity(MainActivity activity) {
@@ -98,7 +100,5 @@ public class MapFragment extends Fragment {
         dogData = gson.fromJson(received, Data.class);
         map.redrawDogMarker(dogData);
     }
-
-
 }
 
