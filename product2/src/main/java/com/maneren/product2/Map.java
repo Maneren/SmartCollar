@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
 
 public class Map {
@@ -82,6 +83,8 @@ public class Map {
                 mMap.getUiSettings().setMyLocationButtonEnabled(true);
 
             }
+
+            this.addDemoPoint();
         });
         Log.d(TAG, "initMap: initializing map - end");
     }
@@ -149,12 +152,22 @@ public class Map {
         }
     }
 
-    void moveCamera(LatLng latLng, float zoom) {
+    private void moveCamera(LatLng latLng, float zoom) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }
 
     void redrawDogMarker(Data dogData) {
         mMap.clear();
         mMap.addMarker(dogData.getMarkerOptions());
+        moveCamera(dogData.getLatLng(), DEFAULT_ZOOM);
+    }
+
+    void addDemoPoint() {
+        LatLng position = new LatLng(49.7404022, 13.3881837);
+        mMap.clear();
+        mMap.addMarker(new MarkerOptions()
+                .position(position)
+                .title("Dog location"));
+        moveCamera(position, DEFAULT_ZOOM);
     }
 }

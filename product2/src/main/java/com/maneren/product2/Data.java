@@ -25,6 +25,10 @@ class Data {
                 .title("Dog location");
     }
 
+    LatLng getLatLng() {
+        return new LatLng(latitude, longitude);
+    }
+
     @Override
     @NonNull
     public String toString() {
