@@ -1,3 +1,5 @@
+// TODO: Repair this fucking mess
+
 package com.maneren.product2;
 
 import android.app.Activity;
@@ -21,7 +23,7 @@ import java.util.Map;
 import java.util.Objects;
 
 
-public class Arduino {
+class Arduino {
     private final String ACTION_USB_PERMISSION = "com.hariharan.arduinousb.USB_PERMISSION";
     private UsbManager usbManager;
     private UsbDevice device;
@@ -38,6 +40,7 @@ public class Arduino {
     };
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         UsbDeviceConnection connection;
+
         @Override
         public void onReceive(Context context, Intent intent) {
             switch (Objects.requireNonNull(intent.getAction())) {

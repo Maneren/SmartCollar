@@ -61,9 +61,6 @@ public class MapFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         map = new Map(activity, this);
-
-        Log.d(TAG, DegreesConverter.DecimalToDegMinSec(0, 49.739956));
-        Log.d(TAG, DegreesConverter.DecimalToDegMinSec(1, 13.999999));
         map.getLocationPermission();
 
 //        mArduino2 = new Arduino2(activity);
@@ -71,9 +68,6 @@ public class MapFragment extends Fragment {
 
         mArduino = new Arduino(activity);
         mArduino.setListener(this::onRecieveCallback);
-
-        /*popup = activity.findViewById(R.id.info_popup);
-        Log.d(TAG, popup.toString());*/
     }
 
     void passActivity(MainActivity activity) {
@@ -98,6 +92,13 @@ public class MapFragment extends Fragment {
     private void onRecieveCallback(String received) {
         Log.d(TAG, received);
         dogData = gson.fromJson(received, Data.class);
+        map.redrawDogMarker(dogData);
+    }
+
+    public void testCallback(String received) {
+        Log.d(TAG, received);
+        dogData = gson.fromJson(received, Data.class);
+        //if(dogData.getTarget().equals("m")){}
         map.redrawDogMarker(dogData);
     }
 }

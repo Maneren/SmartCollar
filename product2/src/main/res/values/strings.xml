@@ -4,7 +4,7 @@
     <string name="title_profile">Profile</string>
     <string name="title_more">More</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove this placeholder text when it is no need to have it-->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <string name="map_test">Map</string>
@@ -21,6 +21,9 @@
 
     <string name="map_latlng_title">Location:</string>
     <string name="map_signal_title">Signal strength:</string>
+    <string name="map_info_popup_toggle">Show info panel</string>
+    <string name="map_alt_title">Altitude:</string>
+    <string name="map_update_title">Last update:</string>
 
 
 </resources>

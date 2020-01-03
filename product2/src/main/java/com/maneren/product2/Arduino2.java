@@ -1,3 +1,4 @@
+// TODO: What the fuck is this, you have two nearly identical classes and no docs
 package com.maneren.product2;
 
 import android.content.BroadcastReceiver;

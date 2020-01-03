@@ -1,8 +1,9 @@
 package com.maneren.product2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -17,9 +18,6 @@ public class MainActivity extends AppCompatActivity {
     private MoreFragment moreFragment;
 
     private static final String TAG = "MainActivity";
-
-    //Arduino2 mArduino2;
-    private ConstraintLayout popup;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             profileFragment = ProfileFragment.newInstance();
             moreFragment = MoreFragment.newInstance();
         }
-
+        Log.d(TAG, "Started");
         displayMapFragment();
     }
 
@@ -79,24 +77,16 @@ public class MainActivity extends AppCompatActivity {
         Communication.shareText(this, "github.com/lambda-collars/Application");
     }
 
-    void getPopupLayout(ConstraintLayout layout) {
-        popup = layout;
-    }
-
-    public void open(View view) {
-        popup = findViewById(R.id.info_popup);
-        Toast.makeText(this.getApplicationContext(), "open/close", Toast.LENGTH_SHORT).show();
-        if (popup.getVisibility() == View.VISIBLE) {
+    public void toggleInfoPopup(View view) {
+        //Arduino2 mArduino2;
+        ConstraintLayout popup = findViewById(R.id.info_popup);
+        Switch switcher = findViewById(R.id.info_popup_toggle);
+        Log.d(TAG, "open/close ");
+        if (!switcher.isChecked()) {
             popup.setVisibility(View.GONE);
         } else {
             popup.setVisibility(View.VISIBLE);
         }
-        /*ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) popup.getLayoutParams();
-        params.height = 0;
-        popup.setLayoutParams(params);*/
-        /*Space.LayoutParams params = (Space.LayoutParams) someLayout.getLayoutParams();
-        params.height = 0;
-        someLayout.setLayoutParams(params);*/
     }
 
 }
