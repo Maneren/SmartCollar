@@ -37,7 +37,7 @@ class Arduino {
     private UsbDevice device;
     private UsbSerialDevice serialPort;
     private Listener mListener;
-    private final String ACTION_USB_PERMISSION = "com.maneren.smartcollar.USB_PERMISSION";
+    private final String ACTION_USB_PERMISSION = "com.hariharan.arduinousb.USB_PERMISSION";
 
     Arduino(Activity activityArg){
         context = activityArg.getApplicationContext();
@@ -51,6 +51,7 @@ class Arduino {
     }
 
     void connect() {
+        final String ACTION_USB_PERMISSION = "com.maneren.smartcollar.USB_PERMISSION";
         HashMap<String, UsbDevice> usbDevices = usbManager.getDeviceList();
         if (!usbDevices.isEmpty()) {
             boolean keep = true;

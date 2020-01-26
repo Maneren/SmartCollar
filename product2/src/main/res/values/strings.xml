@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Smart Collar</string>
     <string name="title_map">Map</string>
-    <string name="title_profile">Profile</string>
+    <string name="title_fence">V-Fence</string>
     <string name="title_more">More</string>
 
     <!-- TODO: Remove this placeholder text when it is no need to have it-->

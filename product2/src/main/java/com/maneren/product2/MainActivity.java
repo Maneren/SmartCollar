@@ -3,10 +3,8 @@ package com.maneren.product2;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -14,7 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     private MapFragment mapFragment;
-    private ProfileFragment profileFragment;
+    private FenceFragment fenceFragment;
     private MoreFragment moreFragment;
 
     private static final String TAG = "MainActivity";
@@ -25,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.navigation_map:
                 displayMapFragment();
                 return true;
-            case R.id.navigation_profile:
-                displayProfileFragment();
+            case R.id.navigation_fence:
+                displayFenceFragment();
                 return true;
             case R.id.navigation_more:
                 displayMoreFragment();
@@ -45,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             mapFragment = MapFragment.newInstance();
             mapFragment.passActivity(this);
-            profileFragment = ProfileFragment.newInstance();
+            fenceFragment = FenceFragment.newInstance();
+            fenceFragment.passActivity(this);
             moreFragment = MoreFragment.newInstance();
         }
         Log.d(TAG, "Started");
@@ -61,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, popup.toString());*/
     }
 
-    protected void displayProfileFragment() {
+    protected void displayFenceFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main_content, profileFragment);
+        ft.replace(R.id.main_content, fenceFragment);
         ft.commit();
     }
 
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         Communication.shareText(this, "github.com/lambda-collars/Application");
     }
 
-    public void toggleInfoPopup(View view) {
+    /*public void toggleInfoPopup(View view) {
         //Arduino2 mArduino2;
         ConstraintLayout popup = findViewById(R.id.info_popup);
         Switch switcher = findViewById(R.id.info_popup_toggle);
@@ -87,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
         } else {
             popup.setVisibility(View.VISIBLE);
         }
+    }*/
+
+    public void startDemo(View view){
+        MapTest mapTest = new MapTest(mapFragment);
+        mapTest.run();
     }
 
 }

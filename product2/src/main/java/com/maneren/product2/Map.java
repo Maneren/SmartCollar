@@ -25,8 +25,8 @@ import com.google.android.gms.tasks.Task;
 
 public class Map {
 
-    static final float DEFAULT_ZOOM = 18f;
-    static private final String TAG = "Map";
+    private static final float DEFAULT_ZOOM = 18f;
+    private static final String TAG = "Map";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
@@ -36,6 +36,8 @@ public class Map {
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private UiSettings mUiSettings;
+    private onMapReadyCallbackListener mListener;
+
 
     Map(Activity act, Fragment frag) {
         activity = act;
@@ -85,6 +87,7 @@ public class Map {
             }
 
             this.addDemoPoint();
+            mListener.recieveCallback();
         });
         Log.d(TAG, "initMap: initializing map - end");
     }
@@ -170,4 +173,13 @@ public class Map {
                 .title("Dog location"));
         moveCamera(position, DEFAULT_ZOOM);
     }
+
+    void setListener(onMapReadyCallbackListener listener) {
+        mListener = listener;
+    }
+
+    public interface onMapReadyCallbackListener {
+        void recieveCallback();
+    }
+
 }

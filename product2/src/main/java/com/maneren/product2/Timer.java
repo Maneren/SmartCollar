@@ -1,4 +1,4 @@
-package com.maneren.smartcollar;
+package com.maneren.product2;
 
 import android.os.Handler;
 

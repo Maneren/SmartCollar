@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Aplikace.iml" filepath="$PROJECT_DIR$/Aplikace.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SmartCollar.iml" filepath="$PROJECT_DIR$/SmartCollar.iml" />
       <module fileurl="file://$PROJECT_DIR$/base-data/base-data.iml" filepath="$PROJECT_DIR$/base-data/base-data.iml" />
       <module fileurl="file://$PROJECT_DIR$/maps_test/maps_test.iml" filepath="$PROJECT_DIR$/maps_test/maps_test.iml" />
       <module fileurl="file://$PROJECT_DIR$/polygons/polygons.iml" filepath="$PROJECT_DIR$/polygons/polygons.iml" />
