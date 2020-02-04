@@ -52,16 +52,9 @@ class Data {
         return accuracy;
     }
 
-    MarkerOptions getMarkerOptions() {
-        return new MarkerOptions()
-                .position(getLatLng())
-                .title("Dog location");
-    }
-
     LatLng getLatLng() {
         return new LatLng(getLatitude(), getLongitude());
     }
-
 
     @NonNull
     public String toJSON() {

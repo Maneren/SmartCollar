@@ -19,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -132,7 +133,10 @@ class Map {
 
     void redrawDogMarker(Data dogData) {
         mMap.clear();
-        mMap.addMarker(dogData.getMarkerOptions());
+        mMap.addMarker(new MarkerOptions()
+                .position(dogData.getLatLng())
+                .title("Dog location")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_location)));
         moveCamera(dogData.getLatLng(), DEFAULT_ZOOM);
     }
 
@@ -141,7 +145,8 @@ class Map {
         mMap.clear();
         mMap.addMarker(new MarkerOptions()
                 .position(position)
-                .title("Dog location"));
+                .title("Dog location")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_location)));
         moveCamera(position, DEFAULT_ZOOM);
     }
 
@@ -154,7 +159,7 @@ class Map {
 
             mMap.clear(); //clear old markers
 
-        UiSettings mUiSettings = mMap.getUiSettings();
+            UiSettings mUiSettings = mMap.getUiSettings();
 
             // Keep the UI Settings state in sync with the checkboxes.
             mMap.setMyLocationEnabled(true);

@@ -14,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
     private MapFragment mapFragment;
     private FenceFragment fenceFragment;
     private MoreFragment moreFragment;
-    private SettingsFragment settingsFragment;
 
     private static final String TAG = "MainActivity";
 
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displaySettingsFragment(String type) {
-        settingsFragment = SettingsFragment.newInstance();
+        SettingsFragment settingsFragment = SettingsFragment.newInstance(type);
         settingsFragment.passActivity(this);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main_content, settingsFragment);
