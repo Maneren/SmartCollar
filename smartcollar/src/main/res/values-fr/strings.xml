@@ -1,0 +1,25 @@
+<resources>
+    <string name="title_map">Carte</string>
+    <string name="title_more">Plus</string>
+
+    <string name="map_test">Carte</string>
+    <string name="profile_test">Profil</string>
+    <string name="more_test">Plus</string>
+    <string name="profile_title">Utilisateur</string>
+    <string name="pets_title">Animaux et Trackers</string>
+    <string name="pets_sub">Activer, ajouter, créer</string>
+    <string name="settings_title">Réglages</string>
+    <string name="settings_sub">Unités, notifications</string>
+    <string name="about_title">À propos de l\'app</string>
+    <string name="profile_sub">Nom d\'utilisateur</string>
+    <string name="share_title">Partager</string>
+
+    <string name="map_latlng_title">Emplacement:</string>
+    <string name="map_signal_title">Force du signal:</string>
+    <string name="map_info_popup_toggle">Info</string>
+    <string name="map_alt_title">Altitude:</string>
+    <string name="map_update_title">Temps:</string>
+    <string name="title_fence">V-Cloture</string>
+
+
+</resources>

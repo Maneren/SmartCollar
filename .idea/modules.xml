@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SmartCollar.iml" filepath="$PROJECT_DIR$/SmartCollar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Aplikace.iml" filepath="$PROJECT_DIR$/Aplikace.iml" />
       <module fileurl="file://$PROJECT_DIR$/base-data/base-data.iml" filepath="$PROJECT_DIR$/base-data/base-data.iml" />
-      <module fileurl="file://$PROJECT_DIR$/maps_test/maps_test.iml" filepath="$PROJECT_DIR$/maps_test/maps_test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/polygons/polygons.iml" filepath="$PROJECT_DIR$/polygons/polygons.iml" />
-      <module fileurl="file://$PROJECT_DIR$/product/product.iml" filepath="$PROJECT_DIR$/product/product.iml" />
-      <module fileurl="file://$PROJECT_DIR$/product-v1/product-v1.iml" filepath="$PROJECT_DIR$/product-v1/product-v1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/product2/product2.iml" filepath="$PROJECT_DIR$/product2/product2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/testing/testing.iml" filepath="$PROJECT_DIR$/testing/testing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/product - old/product - old.iml" filepath="$PROJECT_DIR$/product - old/product - old.iml" />
+      <module fileurl="file://$PROJECT_DIR$/smartcollar/smartcollar.iml" filepath="$PROJECT_DIR$/smartcollar/smartcollar.iml" />
     </modules>
   </component>
 </project>

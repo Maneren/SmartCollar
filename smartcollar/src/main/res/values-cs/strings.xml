@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_map">Mapa</string>
+    <string name="title_more">Další</string>
+    <string name="profile_title">Podrobnosti o uživateli</string>
+    <string name="map_latlng_title">Poloha:</string>
+    <string name="map_signal_title">Síla signálu:</string>
+    <string name="map_test">Mapa</string>
+    <string name="more_test">Další</string>
+    <string name="pets_title">Mazlíčci a trackery</string>
+    <string name="profile_sub">Uživateské jméno</string>
+    <string name="profile_test">Profil</string>
+    <string name="settings_sub">Jednotky, notifikace</string>
+    <string name="settings_title">Nastavení</string>
+    <string name="share_title">Sdílet</string>
+    <string name="pets_sub">Aktivovat, přidat, vytvořit</string>
+    <string name="about_title">O aplikaci</string>
+    <string name="map_info_popup_toggle">Zobrazit panel informací</string>
+    <string name="map_update_title">Poslední aktualizace:</string>
+    <string name="map_alt_title">Nadmořská výška:</string>
+    <string name="title_fence">V-Plot</string>
+</resources>

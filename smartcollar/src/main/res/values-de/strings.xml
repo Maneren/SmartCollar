@@ -1,0 +1,25 @@
+<resources>
+    <string name="title_map">Landkarte</string>
+    <string name="title_more">Mehr</string>
+
+    <string name="map_test">Landkarte</string>
+    <string name="profile_test">Profil</string>
+    <string name="more_test">Mehr</string>
+    <string name="profile_title">Nutzerdetails</string>
+    <string name="pets_title">Haustiere und Tracker</string>
+    <string name="pets_sub">Aktivieren, hinzufügen, erstellen</string>
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_sub">Einheiten, Benachrichtigungen</string>
+    <string name="about_title">Über App</string>
+    <string name="profile_sub">Nutzername</string>
+    <string name="share_title">Teilen</string>
+
+    <string name="map_latlng_title">Ort:</string>
+    <string name="map_signal_title">Signalstärke:</string>
+    <string name="map_info_popup_toggle">Infofenster anzeigen</string>
+    <string name="map_alt_title">Höhe:</string>
+    <string name="map_update_title">Letztes Update:</string>
+    <string name="title_fence">V-Heck</string>
+
+
+</resources>

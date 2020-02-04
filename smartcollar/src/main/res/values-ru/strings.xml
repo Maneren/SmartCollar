@@ -1,0 +1,25 @@
+<resources>
+    <string name="title_map">карта</string>
+    <string name="title_more">Больше</string>
+
+    <string name="map_test">карта</string>
+    <string name="profile_test">профиль</string>
+    <string name="more_test">Больше</string>
+    <string name="profile_title">пользователь</string>
+    <string name="pets_title">Домашние питомцы</string>
+    <string name="pets_sub">Активировать, добавить, создать</string>
+    <string name="settings_title">настройки</string>
+    <string name="settings_sub">Единицы, уведомления</string>
+    <string name="about_title">О апликасии</string>
+    <string name="profile_sub">имя пользователя</string>
+    <string name="share_title">Поделиться</string>
+
+    <string name="map_latlng_title">нахождение:</string>
+    <string name="map_signal_title">Сила сигнала:</string>
+    <string name="map_info_popup_toggle">показать информацию</string>
+    <string name="map_alt_title">высота</string>
+    <string name="map_update_title">Время:</string>
+    <string name="title_fence">V-Забор</string>
+
+
+</resources>
